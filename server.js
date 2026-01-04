@@ -2,7 +2,8 @@ const http = require('http');
 const port = process.env.PORT || 3000;
 
 const requestHandler = (request, response) => {
-  console.log(Received request for URL: ${request.url});
+ console.log(`Received request for URL: ${request.url}`);
+
 
   if (request.url === '/health') {
     response.statusCode = 200;
@@ -20,5 +21,5 @@ server.listen(port, (err) => {
     return console.log('Something went wrong', err);
   }
 
-  console.log(Server is listening on ${port});
+  console.log(`Server is listening on ${port}`);
 });
