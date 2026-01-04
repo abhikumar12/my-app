@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     strategy:
       matrix:
         node-version: [24.x]
@@ -33,7 +33,7 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      # Run tests
+      # Run Jest tests
       - name: Test
         run: npm test
 
