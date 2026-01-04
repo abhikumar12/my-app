@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "lint": "npx eslint .",
-     "test": "jest --passWithNoTests"
+     "test": "jest --passWithNoTests",
+       "build": "echo 'No build step required'"
   },
   "keywords": [],
   "author": "Abhimanyu",
