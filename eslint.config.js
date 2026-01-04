@@ -8,7 +8,9 @@ export default [
     languageOptions: {
       globals: {
         ...globals.node
-      }
+      },
+      ecmaVersion: "latest",
+      sourceType: "module"
     },
     rules: {
       "no-console": "off"

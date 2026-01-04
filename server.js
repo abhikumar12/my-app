@@ -1,26 +1,10 @@
-const http = require('http');
-const port = process.env.PORT || 3000;
+import http from "http";
 
-const requestHandler = (request, response) => {
- console.log(`Received request for URL: ${request.url}`);
+const server = http.createServer((request, response) => {
+  console.log(`Received request for URL: ${request.url}`);
+  response.end("OK");
+});
 
-
-  if (request.url === '/health') {
-    response.statusCode = 200;
-    response.end('OK');
-  } else {
-    response.statusCode = 200;
-    response.end('Hello World!');
-  }
-}
-
-const server = http.createServer(requestHandler);
-
-server.listen(port, (err) => {
-  if (err) {
-    return console.log('Something went wrong', err);
-  }
-
-  console.log(`Server is listening on ${port}`);
-  
+server.listen(process.env.PORT || 3000, () => {
+  console.log("Server running");
 });
