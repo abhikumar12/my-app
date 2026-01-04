@@ -1,13 +1,13 @@
 # Build stage
-FROM node:16-alpine AS build
+FROM node:24-alpine as build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
-RUN npm run build  # works because of dummy build script
+RUN npm run build
 
 # Final stage
-FROM node:16-alpine
+FROM node:24-alpine
 WORKDIR /app
 COPY --from=build /app .
 CMD ["node", "server.js"]
