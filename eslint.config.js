@@ -1,3 +1,4 @@
+// eslint.config.js
 import js from "@eslint/js";
 import globals from "globals";
 
@@ -14,7 +15,7 @@ export default [
     },
     rules: {
       "no-console": "off"
-      // do NOT include "constructor-super" manually
+      // ⚠ Do NOT add 'constructor-super' manually
     }
   }
 ];
