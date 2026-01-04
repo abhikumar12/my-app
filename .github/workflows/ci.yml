@@ -2,13 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "develop" ]
+    branches: ["develop"]
   pull_request:
-    branches: [ "develop" ]
-
-permissions:
-  contents: read
-  packages: write
+    branches: ["develop"]
 
 jobs:
   build:
@@ -16,40 +12,30 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [16]
+        node-version: [24.x]
 
     steps:
-      # 1️⃣ Checkout code
       - uses: actions/checkout@v3
 
-      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # 4️⃣ Run ESLint (linting)
       - name: Lint
         run: npm run lint
 
-      # 5️⃣ Run tests (bypass ESM issues)
       - name: Test
-        run: echo "Skipping tests to avoid ESM issues"  # Bypassed temporarily
+        run: npm test
 
-      # 6️⃣ Build Docker image
       - name: Build Docker image
-        run: |
-          docker build -t ghcr.io/abhikumar12/my-app:${{ github.sha }} .
+        run: docker build -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
 
-      # 7️⃣ Push Docker image to GHCR
       - name: Push Docker image
-        env:
-          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "${GHCR_TOKEN}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker push ghcr.io/abhikumar12/my-app:${{ github.sha }}
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
