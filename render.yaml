@@ -1,0 +1,9 @@
+services:
+- type: web
+  name: devops-app
+  env: docker
+  buildCommand: docker build -t devops-app .
+  startCommand: docker run -p 3000:3000 devops-app
+  envVars:
+  - key: PORT
+    value: 3000
