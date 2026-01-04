@@ -14,6 +14,7 @@ export default [
     },
     rules: {
       "no-console": "off"
+      // do NOT include "constructor-super" manually
     }
   }
 ];
